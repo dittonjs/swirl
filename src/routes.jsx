@@ -4,6 +4,7 @@ import App                                        from './app';
 import Landing                                    from './components/landing';
 import Login                                      from './components/login';
 import Leaderboard                                from './components/leaderboard/_leaderboards'
+import Profile                                    from './components/profile/_profile';
 
 export default (
   <Router history={hashHistory}>
@@ -11,6 +12,7 @@ export default (
       <IndexRoute component={Landing} />
       <Route path="/login" component={Login} />
       <Route path="/leaderboard" component={Leaderboard} />
+      <Route path="/profile" component={Profile} />
     </Route>
   </Router>
 );
