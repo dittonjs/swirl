@@ -16,3 +16,6 @@ export default (
     </Route>
   </Router>
 );
+
+// if you need variables in the url
+// <Route path="/profile/:user_id" component={Profile} />
