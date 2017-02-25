@@ -1,17 +1,10 @@
 import React from 'react';
-<<<<<<< HEAD
-import { hashHistory,  Link } from 'react-router';
-export class Profile extends React.Component {
-=======
 import _ from 'lodash';
 import TblHdr from './profileTblHdr';
 import TblRow from './profileTblRow';
 
 export default class Profile extends React.Component {
 
-  goToLogin(){
-    hashHistory.push("/login");
-  }
   // some router stuff for an example
   render(){
     return(
