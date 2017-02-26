@@ -3,10 +3,18 @@
 .login-container {
   width: 40%;
   margin: 60px auto;
+}
+
+.lift {
   @include lift(0.3s);
 }
 
+.login-with-facebook-button {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+}
+
 .login-button {
-  @include raised-button($secondary, white);
-  @include button-ripple(1.5s, white);
+  margin-top: 10px;
 }
