@@ -33,11 +33,13 @@
     "http-proxy-middleware": "0.17.3",
     "jest": "18.1.0",
     "json-loader": "0.5.4",
+    "node-sass": "^4.5.0",
     "object-assign": "4.1.1",
     "postcss-loader": "1.2.2",
     "promise": "7.1.1",
     "react-dev-utils": "^0.5.0",
     "recursive-readdir": "2.1.0",
+    "sass-loader": "^6.0.2",
     "strip-ansi": "3.0.1",
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
@@ -47,6 +49,7 @@
     "whatwg-fetch": "2.0.2"
   },
   "dependencies": {
+    "firebase": "^3.6.10",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.2",

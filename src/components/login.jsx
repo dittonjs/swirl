@@ -1,22 +1,11 @@
 import React from 'react';
-
+import RaisedButton from './material_components/raised_button';
 export default class Login extends React.Component {
-  constructor(props){
-    super();
-    this.state = {
-      userClickedPopup: false,
-    };
-  }
-  componentDidMount(){}
-  componentWillUpdate(nextProps, nextState){}
-  componentDidUpdate(){}
-  componentWillReceiveProps(nextProps){}
-  shouldComponentUpdate(nextProps, nextState){}
-  componentWillUnmount(){}
   render(){
     return (
-      <div>
-        Login
+      <div className="paper-1 login-container">
+        <h3>Login</h3>
+        <RaisedButton>LOGIN WITH FACEBOOK</RaisedButton>
       </div>
     );
   }

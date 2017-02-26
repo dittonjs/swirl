@@ -1,0 +1,12 @@
+@import "material_components";
+
+.login-container {
+  width: 40%;
+  margin: 60px auto;
+  @include lift(0.3s);
+}
+
+.login-button {
+  @include raised-button($secondary, white);
+  @include button-ripple(1.5s, white);
+}

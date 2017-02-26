@@ -1,9 +1,10 @@
 import React from 'react';
 import _ from 'lodash';
+import ApplicationRoute from '../application_route';
 import TblHdr from './profileTblHdr';
 import TblRow from './profileTblRow';
 
-export default class Profile extends React.Component {
+export default class Profile extends ApplicationRoute {
 
   // some router stuff for an example
   render(){
