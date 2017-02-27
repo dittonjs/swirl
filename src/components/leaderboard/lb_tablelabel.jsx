@@ -1,17 +1,17 @@
 import React from 'react';
 
-export default class LeaderboardTableRow extends React.Component{
+export default class LeaderboardTableLabel extends React.Component{
   render(){
     return(
       <tr>
         <td>
-          {this.props.userName}
+          Username
         </td>
         <td>
-          {this.props.userReviews}
+          Reviews
         </td>
         <td>
-          {this.props.userPoints}
+          Total Points
         </td>
       </tr>
     );
