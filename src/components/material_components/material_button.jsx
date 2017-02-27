@@ -6,7 +6,7 @@ export default class RaisedButton extends React.Component {
   constructor(){
     super();
     this.count = 0;
-    this.buttomn = null;
+    this.button = null;
     this.state = {
       ripples: []
     }
@@ -42,13 +42,15 @@ export default class RaisedButton extends React.Component {
   render(){
     return (
       <button
-        className={`raised-button ${this.props.className || ""}`}
+        className={
+          `${this.props.type ==='flat' ? "flat-button" : "raised-button"} ${this.props.className || ""}`
+        }
         onClick={e => this.handleClick(e)}
         ref={(el) => { this.button = el; }}
       >
         {this.props.children}
         {this.state.ripples}
       </button>
-    )
+    );
   }
 }
