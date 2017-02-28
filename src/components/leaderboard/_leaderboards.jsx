@@ -3,7 +3,7 @@ import _ from "lodash";
 import LeaderboardTableHeader from './lb_tableheader';
 import LeaderboardTableRow from './lb_tablerow';
 import LeaderboardTableLabel from './lb_tablelabel';
-import RaisedButton from '../material_components/raised_button';
+import RaisedButton from '../material_components/material_button';
 
 export default class Leaderboards extends React.Component {
   getLeaderBoardRows(){
