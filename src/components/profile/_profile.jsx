@@ -9,8 +9,8 @@ export default class Profile extends ApplicationRoute {
   // some router stuff for an example
   render(){
     return(
-      <div>
-        <table>
+      <div className="info-container">
+        <table className="table">
           <TblHdr hdrTxt="UserName Profile" />
           <TblRow profileDataName="Name:" profileData="Britt Schmidt" />
           <TblRow profileDataName="Points:" profileData="500" />

@@ -1,0 +1,17 @@
+@import "material_components";
+
+.info-container {
+  width: 50%;
+  margin: 50px auto;
+  //text-align: center;
+  text-decoration-color: red;
+  table-layout: auto;
+}
+
+.lift {
+  @include lift(0.5s);
+}
+
+.table {
+  border: 1px solid black;
+}
