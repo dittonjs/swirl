@@ -7,7 +7,7 @@ export default class PageHeader extends React.Component {
                 <button className="float-left menu-button">
                     <i className="material-icons">menu</i>
                 </button>
-                <h3 className="float-right">{this.props.pageName}</h3>
+                <div className="float-right page-name">{this.props.pageName}</div>
                 <div className="clear" />
             </div>
         );
