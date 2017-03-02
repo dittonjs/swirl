@@ -4,6 +4,8 @@ import LeaderboardTableHeader from './lb_tableheader';
 import LeaderboardTableRow from './lb_tablerow';
 import LeaderboardTableLabel from './lb_tablelabel';
 import RaisedButton from '../material_components/material_button';
+import PageHeader from '../pageHeader';
+
 
 export default class Leaderboards extends React.Component {
   getLeaderBoardRows(){
@@ -22,10 +24,7 @@ export default class Leaderboards extends React.Component {
       <div>
         <p><RaisedButton>Login</RaisedButton></p>
         <h1>Swirl Leaderboards</h1>
-        <RaisedButton>Home</RaisedButton>
-        <RaisedButton>Profile</RaisedButton>
-        <RaisedButton>Leaderboards</RaisedButton>
-        <RaisedButton>About</RaisedButton>
+        <PageHeader pageName="Leaderboards"/>
         <h2>Top Users</h2>
         <RaisedButton>Highest Points</RaisedButton><RaisedButton>Points per Review</RaisedButton><RaisedButton>Most Reviews</RaisedButton>
         <table>
