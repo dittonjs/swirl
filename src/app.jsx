@@ -25,14 +25,13 @@ class App extends React.Component {
       window.localStorage.setItem("pendingRedirect", "0");
     });
   }
+  
   render() {
     if(this.state.pendingRedirect === "1"){
       return <h1>Loading</h1>;
     }
     return (
       <div>
-
-        <button onClick={()=>FirebaseController.signOut()}>SIGNOUT</button>
         {this.props.children}
       </div>
     );
