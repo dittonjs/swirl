@@ -20,12 +20,12 @@ export default class Leaderboards extends React.Component {
       <div>
         <PageHeader pageName="Leaderboards"/>
         <div className="main-content">
-          <div className="leaderboard-box">
+          <div className="paper-3">
             <h2>Top Users</h2>
               <RaisedButton>Highest Points</RaisedButton>
               <RaisedButton>Points per Review</RaisedButton>
               <RaisedButton>Most Reviews</RaisedButton>
-            <table>
+            <table className="paper-2">
               <LeaderboardTableHeader headerText="Table Header"/>
               <LeaderboardTableLabel/>
               {this.getLeaderBoardRows()}
