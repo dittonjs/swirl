@@ -6,7 +6,6 @@ import LeaderboardTableLabel from './lb_tablelabel';
 import RaisedButton from '../material_components/material_button';
 import PageHeader from '../pageHeader';
 
-
 export default class Leaderboards extends React.Component {
   getLeaderBoardRows(){
     //The current users listed are dummy data; Will be retrieved from database later.
@@ -16,22 +15,23 @@ export default class Leaderboards extends React.Component {
       return <LeaderboardTableRow userName={user.userName} userReviews={user.userReviews} userPoints={user.userPoints}/>
     });
   }
-  //Buttons are placeholders and do not work yet
-  //The top navbar is entirely temporary. It will assumedly be replaced by a navbar component
-  //Currently using RaisedButton as an aesthetic placeholder
   render(){
     return (
       <div>
-        <p><RaisedButton>Login</RaisedButton></p>
-        <h1>Swirl Leaderboards</h1>
         <PageHeader pageName="Leaderboards"/>
-        <h2>Top Users</h2>
-        <RaisedButton>Highest Points</RaisedButton><RaisedButton>Points per Review</RaisedButton><RaisedButton>Most Reviews</RaisedButton>
-        <table>
-          <LeaderboardTableHeader headerText="Table Header"/>
-          <LeaderboardTableLabel/>
-          {this.getLeaderBoardRows()}
-        </table>
+        <div className="main-content">
+          <div className="leaderboard-box">
+            <h2>Top Users</h2>
+              <RaisedButton>Highest Points</RaisedButton>
+              <RaisedButton>Points per Review</RaisedButton>
+              <RaisedButton>Most Reviews</RaisedButton>
+            <table>
+              <LeaderboardTableHeader headerText="Table Header"/>
+              <LeaderboardTableLabel/>
+              {this.getLeaderBoardRows()}
+            </table>
+          </div>
+        </div>
       </div>
     );
   }
