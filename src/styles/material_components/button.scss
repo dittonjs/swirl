@@ -21,7 +21,7 @@
 
 @mixin flat-button($font-color, $ripple-color: none, $ripple-duration: none){
   color: $font-color;
-  background: white;
+  background: transparent;
   border: none;
   border-radius: 2px;
   padding: 8px 16px;
