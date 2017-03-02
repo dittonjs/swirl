@@ -4,6 +4,7 @@ import TextField    from './material_components/text_field';
 import FirebaseController from '../database/firebase_controller';
 export default class Login extends React.Component {
   signInWithFacebook(){
+    window.localStorage.setItem("pendingRedirect", "1");
     FirebaseController.signIn()
   }
   render(){
