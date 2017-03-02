@@ -10,6 +10,10 @@ export default class FirebaseController {
     AUTH.onAuthStateChanged(callback);
   }
 
+  static getCurrentUser(){
+    return AUTH.currentUser;
+  }
+
   static signIn(){
     const provider = new firebase.auth.FacebookAuthProvider();
     provider.addScope('email');
