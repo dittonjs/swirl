@@ -4,10 +4,10 @@ export default class ProfileTblHdr extends React.Component {
   render(){
     return(
       <tr>
-        <th>
+        <th className="tableHeader" colSpan="2">
           {this.props.hdrTxt}
         </th>
-      </tr>  
+      </tr>
     );
   }
 }
