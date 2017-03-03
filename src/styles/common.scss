@@ -7,6 +7,22 @@
   right: 0px;
   background-color: $primary;
   color: white;
+  padding: 25px;
+  font-size: 1.2em;
+  .page-name {
+    margin-top: 10px;
+  }
+  .menu-button{
+    border: none;
+    color: white;
+    outline: none;
+    cursor: pointer;
+    background-color: transparent;
+    i {
+      font-size: 40px;
+    }
+  }
+
 }
 
 .float-left {

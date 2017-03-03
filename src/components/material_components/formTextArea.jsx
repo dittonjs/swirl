@@ -1,6 +1,6 @@
 import React  from 'react';
 
-export default class FormElement extends React.Component {
+export default class FormTextArea extends React.Component {
 	//Incoming vars: labelName, elementID, inputType
 	render(){
 		return(
@@ -9,7 +9,7 @@ export default class FormElement extends React.Component {
 					<label htmlFor={this.props.elementID}>{this.props.labelName}</label>
 				</div>
 				<div className="elementBottom">
-					<input type={this.props.inputType} name={this.props.elementID} id={this.props.elementID} />
+					<textarea id={this.props.elementID} rows="5" cols="40"></textarea>
 				</div>
 			</div>
 		)
