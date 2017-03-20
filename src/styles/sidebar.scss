@@ -1,0 +1,29 @@
+@import "material_components/color";
+
+.sidebar {
+  padding: 0px;
+  width: 250px;
+  position: fixed;
+  top: 0px;
+  left: -400px;
+  bottom: 0px;
+  transition: all .3s ease;
+  z-index: 1000;
+  .sidebar-header {
+    background-color: $secondary;
+    height: 97px;
+  }
+  .sidebar-item {
+    // border-bottom: 1px solid grey;
+  }
+  .sidebar-button {
+    width: 100%;
+    text-align: left;
+    font-size: 1em;
+    padding: 20px;
+  }
+}
+
+.sidebar-open {
+  left: 0px;
+}

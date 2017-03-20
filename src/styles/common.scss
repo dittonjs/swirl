@@ -22,8 +22,11 @@
     i {
       font-size: 40px;
     }
+    transition: all .3s ease;
   }
-
+  .move-right {
+    margin-left: 250px;
+  }
 }
 
 .float-left {
@@ -40,4 +43,18 @@
 
 .main-content {
   padding: 120px 20px 20px 20px;
+  .overlay {
+    z-index: -99;
+    background-color: tranparent;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    transition: background-color .3s ease;
+  }
+  .overlay-open {
+    z-index: 98;
+    background-color: rgba(0,0,0,.5);
+  }
 }
