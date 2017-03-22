@@ -5,9 +5,9 @@ import ApplicationRoute from '../application_route';
 export default class BusHours extends ApplicationRoute {
     render() {
         return(
-			<div>
-				<div>
-					Select hours that the bathroom is available. Select N/A if the bathroom is always accessable.
+			<div id="busHours">
+				<div className="busHoursLbl">
+					When is the bathroom available? Select N/A if the bathroom is always accessable.
 				</div>
 				<input type="checkbox" name="notApplicable" id="notApplicable" />
 				<label htmlFor="notApplicable">N/A</label>

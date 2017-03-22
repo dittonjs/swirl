@@ -3,7 +3,7 @@ import React  from 'react';
 export default class FormYesNo extends React.Component {
 	render(){
 		return(
-			<div className="formElement">
+			<div className="formElement formYesNo">
 				<div className="elementTop">
 					<label htmlFor={this.props.elementID}>{this.props.labelName}</label>
 				</div>
