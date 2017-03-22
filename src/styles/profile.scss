@@ -2,16 +2,29 @@
 
 .info-container {
   width: 50%;
-  margin: 50px auto;
-  //text-align: center;
-  text-decoration-color: red;
-  table-layout: auto;
+  margin: auto;
 }
 
 .lift {
-  @include lift(0.5s);
+  @include lift(0.3s);
 }
 
 .table {
-  border: 1px solid black;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tableRow {
+  text-align: left;
+  padding: 8px;
+}
+
+.tableHeader {
+  border : 1px solid $primary-accent;
+  text-align: center;
+  padding: 8px;
+}
+
+.tableData {
+  border : 1px solid $primary-accent;
 }
