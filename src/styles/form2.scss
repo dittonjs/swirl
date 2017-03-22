@@ -1,0 +1,56 @@
+@import "material_components/color";
+
+input[type=text],select{
+	border:none;
+	border-bottom: 1px solid $gray;
+	padding: 10px;
+	margin: 10px;
+	font-size: 25px;
+}
+
+input[type=radio]{
+	margin: 10px;
+}
+
+select{
+	color: $gray;
+}
+
+input[type=text]:focus,select:focus  {
+	outline:none;
+	border-bottom: 2px solid $primary-accent;
+}
+
+.formElement{
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+.busHoursLbl{
+	padding-top: 10px;
+	padding-bottom: 10px;
+	color: $gray;
+}
+
+.formYesNo{
+	margin-top:20px;
+	margin-bottom:20px;
+}
+
+label{
+	color: $gray;
+}
+
+.elementBottom textarea{
+	margin: 10px;
+}
+
+.elementBottom input[type=checkbox]{
+	margin-left: 10px;
+}
+
+
+#busHours{
+	margin-top:20px;
+	margin-bottom:20px;
+}
