@@ -16,7 +16,6 @@ export default class RaisedButton extends React.Component {
     const {offsetTop, offsetLeft} = this.button;
     const relativeLocationX = e.pageX - offsetLeft;
     const relativeLocationY = e.pageY - offsetTop;
-    // debugger;
     const count = this.count;
     const newRipples = [
       ...this.state.ripples,
