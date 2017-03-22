@@ -21,6 +21,11 @@ input[type=text]:focus,select:focus  {
 	border-bottom: 2px solid $primary-accent;
 }
 
+.formElement{
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
 .busHoursLbl{
 	padding-top: 10px;
 	padding-bottom: 10px;
@@ -35,6 +40,15 @@ input[type=text]:focus,select:focus  {
 label{
 	color: $gray;
 }
+
+.elementBottom textarea{
+	margin: 10px;
+}
+
+.elementBottom input[type=checkbox]{
+	margin-left: 10px;
+}
+
 
 #busHours{
 	margin-top:20px;
