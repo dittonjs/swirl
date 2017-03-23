@@ -5,7 +5,7 @@ import TblHdr from './profileTblHdr';
 import TblRow from './profileTblRow';
 import PageHeader from '../pageHeader';
 import ContentArea from '../content_area';
-import TextField from '../material_components/text_field';
+import TextArea from '../material_components/formTextArea';
 
 export default class Profile extends ApplicationRoute {
 
@@ -14,7 +14,7 @@ export default class Profile extends ApplicationRoute {
     return(
       <ContentArea pageName="Profile">
         <div className="info-container">
-          <div className="paper-3 lift">
+          <div className="paper-1 lift">
             <table className="table">
               <TblHdr hdrTxt="UserName" />
               <TblRow profileDataName="Name:" profileData="Britt Schmidt" />
@@ -23,13 +23,9 @@ export default class Profile extends ApplicationRoute {
               <TblRow profileDataName="Number of reviews:" profileData="10" />
               <TblRow profileDataName="Bathrooms Uploaded:" profileData="3" />
             </table>
-          </div>
-        </div>
-        <div className="info-container">
-          <div className="paper-1 lift">
             <table className="table">
               <TblHdr hdrTxt="Bio" />
-              <TextField placeholder={this.props.bioInfo}/>
+              <TextArea elementID="bioText" labelName="Enter Bio Here"/>
             </table>
           </div>
         </div>
