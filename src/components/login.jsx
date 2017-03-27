@@ -7,6 +7,7 @@ export default class Login extends React.Component {
     window.localStorage.setItem("pendingRedirect", "1");
     FirebaseController.signIn()
   }
+
   render(){
     return (
       <div className="login-container">

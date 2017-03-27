@@ -1,5 +1,6 @@
 import React              from 'react';
 import FirebaseController from './database/firebase_controller';
+import {swirlFirebase} from './database/firebase_controller';
 import { hashHistory }    from 'react-router';
 import './styles/application.scss';
 
@@ -10,7 +11,14 @@ class App extends React.Component {
       pendingRedirect: "0",
     }
   }
-
+  updateUserID(user){
+    swirlFirebase.DATABASE.ref('users/' + user.uid).set({
+      UID: user.uid,
+      displayName: user.displayName,
+      email: user.email,
+      photoURL: user.photoURL
+    });
+  }
   componentWillMount(){
     this.setState({pendingRedirect: window.localStorage.getItem("pendingRedirect")});
     // for auth with facebook
@@ -18,6 +26,7 @@ class App extends React.Component {
       window.localStorage.setItem("pendingRedirect", "0");
       this.setState({pendingRedirect: "0"});
       if(result.credential){
+        this.updateUserID(result.user);
         hashHistory.push("/profile");
       }
     }, (err)=>{
@@ -25,7 +34,7 @@ class App extends React.Component {
       window.localStorage.setItem("pendingRedirect", "0");
     });
   }
-  
+
   render() {
     if(this.state.pendingRedirect === "1"){
       return <h1>Loading</h1>;
