@@ -6,7 +6,8 @@ import Login                                      from './components/login';
 import Leaderboard                                from './components/leaderboard/_leaderboards'
 import Profile                                    from './components/profile/_profile';
 import BathroomEdit                               from './components/bathroomEdit/_bathroomEdit';
-import BathroomReview                             from './components/bathroomReview/_bathroomReview'
+import BathroomReview                             from './components/bathroomReview/_bathroomReview';
+import FindBathroom                               from './components/find_bathroom/find_bathroom';
 
 export default (
   <Router history={hashHistory}>
@@ -17,6 +18,7 @@ export default (
       <Route path="/profile" component={Profile} />
       <Route path="/bathroomEdit" component={BathroomEdit} />
       <Route path="/bathroomReview" component={BathroomReview} />
+      <Route path="/findBathroom" component={FindBathroom} />
     </Route>
   </Router>
 );
