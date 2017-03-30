@@ -32,3 +32,5 @@ export default class FirebaseController {
     AUTH.getRedirectResult().then(res).catch(err);
   }
 }
+
+export const swirlFirebase = {APP, DATABASE, AUTH};

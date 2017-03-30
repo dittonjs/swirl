@@ -17,7 +17,7 @@ export default class Sidebar extends React.Component {
           <MaterialButton
             type="flat"
             className="sidebar-button"
-            onClick={() => this.goTo("/")}
+            onClick={() => this.goTo("/findBathroom")}
           >
             FIND A BATHROOM
           </MaterialButton>
