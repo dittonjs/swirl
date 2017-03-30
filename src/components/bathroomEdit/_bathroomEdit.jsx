@@ -56,7 +56,7 @@ export default class BathroomEdit extends ApplicationRoute {
       const runningWater = this.runningWater.getValue();
       const babyStation = this.babyStation.getValue();
       const isClean = this.clean.getValue();
-      const userId = FirebaseController.getCurrentUser().uid;
+      const userId = FirebaseController.getCurrentUser().uid || window.localStorage.getItem('swirlUserId');
       const {latLng} = this.state;
       let id = `${latLng.lat()}${latLng.lng()}`
       id = id.replace(/\./g, '-');

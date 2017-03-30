@@ -12,11 +12,14 @@ class App extends React.Component {
     }
   }
   updateUserID(user){
-    swirlFirebase.DATABASE.ref('users/' + user.uid).set({
-      UID: user.uid,
-      displayName: user.displayName,
-      email: user.email,
-      photoURL: user.photoURL
+    window.localStorage.setItem('swirlUserId', user.uid);
+    swirlFirebase.DATABASE.ref('users/' + user.uid).once('value').then((snapshot)=>{
+      !snapshot.val() && swirlFirebase.DATABASE.ref('users/' + user.uid).set({
+        UID: user.uid,
+        displayName: user.displayName,
+        email: user.email,
+        photoURL: user.photoURL
+      });
     });
   }
   componentWillMount(){

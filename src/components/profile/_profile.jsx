@@ -6,16 +6,22 @@ import TblRow from './profileTblRow';
 import PageHeader from '../pageHeader';
 import ContentArea from '../content_area';
 import TextArea from '../material_components/formTextArea';
-import {swirlFirebase} from '../../database/firebase_controller';
+import FirebaseController, {swirlFirebase} from '../../database/firebase_controller';
+
 export default class Profile extends ApplicationRoute {
   constructor(){
     super();
     this.state={userData:null}
   }
-  componentWillMount(){
-    swirlFirebase.DATABASE.ref('users/' + '4mTdFXpflhYKQOdhP1cVqpDcWdp1').once('value').then((snapshot)=>{
+  componentDidMount(){
+    swirlFirebase.DATABASE.ref(`users/${window.localStorage.getItem('swirlUserId')}`).once('value').then((snapshot)=>{
       this.setState({
         userData:snapshot.val()
+      });
+    });
+    swirlFirebase.DATABASE.ref(`users/${window.localStorage.getItem('swirlUserId')}/bathrooms`).once('value').then((snapshot)=>{
+      this.setState({
+        bathroomCount: _.size(snapshot.val()),
       });
     });
   }
@@ -36,7 +42,7 @@ export default class Profile extends ApplicationRoute {
               <TblRow profileDataName="Points:" profileData="500" />
               <TblRow profileDataName="Rank:" profileData="25543" />
               <TblRow profileDataName="Number of reviews:" profileData="10" />
-              <TblRow profileDataName="Bathrooms Uploaded:" profileData="3" />
+              <TblRow profileDataName="Bathrooms Uploaded:" profileData={this.state.bathroomCount} />
             </table>
             <table className="table">
               <TblHdr hdrTxt="Bio" />
