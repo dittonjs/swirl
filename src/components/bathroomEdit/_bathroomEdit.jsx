@@ -17,7 +17,7 @@ export default class BathroomEdit extends ApplicationRoute {
     render() {
         return(
     		<ContentArea>
-    			<FormElement labelName="Bathroom Location" elementID="bathroomName" inputType="text" placeholder="Office First Floor"/>
+    			<FormElement labelName="Bathroom Location" elementID="bathroomName" inputType="text" placeholderText="Office First Floor"/>
     			<FormStar labelName="Bathroom Rating" elementID="bathroomRating"  />
     			<div>
     				<div>Select the location of the bathroom.</div>

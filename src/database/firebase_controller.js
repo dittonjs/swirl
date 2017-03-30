@@ -27,7 +27,7 @@ export default class FirebaseController {
       console.log(err);
     });
   }
-
+  
   static getRedirectResult(res, err){
     AUTH.getRedirectResult().then(res).catch(err);
   }
