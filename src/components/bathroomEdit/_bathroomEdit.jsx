@@ -1,33 +1,94 @@
+/* global google */
 import React from 'react';
 import _ from 'lodash';
 import ApplicationRoute from '../application_route';
-import PageHeader from '../pageHeader';
 import ContentArea from '../content_area';
 import FormElement from '../material_components/formElement.jsx';
 import FormYesNo from '../material_components/formYesNo.jsx';
 import FormStar from '../material_components/formStars.jsx';
 import RaisedButton from '../material_components/material_button.jsx';
 import BusHours from './busHours';
-const divStyle={
-        padding: '200px',
-        border: '1px solid black',
-    };
+import FirebaseController, { swirlFirebase } from '../../database/firebase_controller';
+import GeoFire from 'geofire';
+
 export default class BathroomEdit extends ApplicationRoute {
+    constructor(){
+      super();
+      this.mapDiv = null;
+      this.map = null;
+      this.bathroomName = null;
+      this.clean = null;
+      this.handicap = null;
+      this.runningWater = null;
+      this.babyStation = null;
+      this.businessHours = null;
+      this.state = {
+        latLng: null,
+      }
+    }
+
+    componentWillMount(){
+      if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition((position)=>{
+          const currentLocation = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          this.map = new google.maps.Map(this.mapDiv, {zoom: 20, center: currentLocation});
+          new google.maps.Marker({
+            position: currentLocation,
+            map: this.map
+          });
+          this.map.addListener('click', (e) => {
+            this.setState({latLng: e.latLng});
+            new google.maps.Marker({
+              position: e.latLng,
+              map: this.map
+            });
+          });
+        });
+      }
+    }
+
+    submitBathroom(){
+      const bathroomName = this.bathroomName.getValue();
+      const handicap = this.handicap.getValue();
+      const runningWater = this.runningWater.getValue();
+      const babyStation = this.babyStation.getValue();
+      const isClean = this.clean.getValue();
+      const userId = FirebaseController.getCurrentUser().uid;
+      const {latLng} = this.state;
+      let id = `${latLng.lat()}${latLng.lng()}`
+      id = id.replace(/\./g, '-');
+      const bathroom = {
+        bathroomName,
+        handicap,
+        runningWater,
+        babyStation,
+        isClean,
+      }
+      swirlFirebase.DATABASE.ref(`users/${userId}/bathrooms/${id}`).set(bathroom);
+      swirlFirebase.DATABASE.ref(`bathrooms/${id}`).set(bathroom);
+      const geoFire = new GeoFire(swirlFirebase.DATABASE.ref('geolocation'));
+      geoFire.set(id, [latLng.lat(), latLng.lng()]).then(()=>{}, (err)=>{
+        console.log(err);
+      });
+    }
 
     render() {
         return(
     		<ContentArea>
-    			<FormElement labelName="Bathroom Location" elementID="bathroomName" inputType="text" placeholder="Office First Floor"/>
+    			<FormElement ref={(el)=>{ this.bathroomName = el; }} labelName="Bathroom Location" elementID="bathroomName" inputType="text" placeholder="Office First Floor"/>
     			<FormStar labelName="Bathroom Rating" elementID="bathroomRating"  />
     			<div>
     				<div>Select the location of the bathroom.</div>
-                    <div style={divStyle}>Map Here</div>
+            <div style={{margin: 'auto', width: '80%', height: '70vh'}} ref={(el)=>{ this.mapDiv = el; }}></div>
     			</div>
-    			<BusHours />
-    			<FormYesNo labelName="Would you consider this bathroom to be clean?" elementID="clean" ans1="Yes" ans2="No"/>
-                <FormYesNo labelName="Is there running water?" elementID="water" ans1="Yes" ans2="No"/>
-                <FormYesNo labelName="Are there handicap accomidations?" elementID="water" ans1="Yes" ans2="No"/>
-                <FormYesNo labelName="Baby changing station?" elementID="water" ans1="Yes" ans2="No"/>
+    			<BusHours ref={(el)=>{ this.businessHours = el; }}/>
+    			<FormYesNo ref={(el)=>{ this.clean = el; }}labelName="Would you consider this bathroom to be clean?" elementID="clean" ans1="Yes" ans2="No"/>
+                <FormYesNo ref={(el)=>{ this.runningWater = el; }} labelName="Is there running water?" elementID="water" ans1="Yes" ans2="No"/>
+                <FormYesNo ref={(el)=>{ this.handicap = el; }} labelName="Are there handicap accomidations?" elementID="handicap" ans1="Yes" ans2="No"/>
+                <FormYesNo ref={(el)=>{ this.babyStation = el; }} labelName="Baby changing station?" elementID="babyStation" ans1="Yes" ans2="No"/>
                 <div className="formElement">
     				<div className="elementTop">
     					<label htmlFor="gender">What kind of bathrooms are available?</label>
@@ -55,7 +116,7 @@ export default class BathroomEdit extends ApplicationRoute {
                         <textarea rows="5" cols="40"></textarea>
     				</div>
     			</div>
-                <RaisedButton>Save</RaisedButton>
+                <RaisedButton onClick={() => this.submitBathroom()}>Save</RaisedButton>
     		</ContentArea>
         );
     }

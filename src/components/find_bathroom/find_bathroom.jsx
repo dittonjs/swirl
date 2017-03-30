@@ -1,13 +1,18 @@
 import React from 'react';
 import ContentArea from '../content_area';
+import BathroomInfoModal from './bathroom_info_modal';
+import {swirlFirebase} from '../../database/firebase_controller';
+import GeoFire from 'geofire';
+import _ from 'lodash';
 /* global google */
 export default class FindBathroom extends React.Component {
   constructor(){
     super();
     this.state = {
-      currentLocation: null
+      currentLocation: null,
     }
     this.mapDiv = null;
+    this.map = null;
   }
   componentWillMount(){
     if(navigator.geolocation){
@@ -17,15 +22,38 @@ export default class FindBathroom extends React.Component {
           lng: position.coords.longitude
         }
         this.setState({ currentLocation });
-        const map = new google.maps.Map(this.mapDiv, {zoom: 20, center: currentLocation});
+        this.map = new google.maps.Map(this.mapDiv, {zoom: 20, center: currentLocation});
         new google.maps.Marker({
           position: currentLocation,
-          map
-        }).addListener('click', () => {console.log("clicked")});
-
+          map: this.map
+        });
+        const geoFire = new GeoFire(swirlFirebase.DATABASE.ref('geolocation'));
+        const geoQuery = geoFire.query({
+          center: [currentLocation.lat, currentLocation.lng],
+          radius: 0.01
+        });
+        geoQuery.on('key_entered', (key, location)=>{
+          swirlFirebase.DATABASE.ref(`bathrooms/${key}`).once('value').then((snapshot)=>{
+            new google.maps.Marker({
+              position: {lat: location[0], lng: location[1]},
+              map: this.map
+            }).addListener('click', ()=>{
+              // do something with the bathroom data
+            });
+          });
+        });
+      }, (err) => {
       });
     }
   }
+
+  openInfoModal(bathroom){
+    this.setState({infoModalOpen: true, bathroom });
+  }
+  closeModal(){
+    this.setState({open: false});
+  }
+
   render(){
     let loading = null;
     if(!this.state.currentLocation){
@@ -37,6 +65,8 @@ export default class FindBathroom extends React.Component {
         <div >
           <div style={{margin: 'auto', width: '80%', height: '70vh'}} ref={(el) => { this.mapDiv = el; }} />
         </div>
+        <BathroomInfoModal open={this.state.infoModalOpen} bathroom={this.state.selectedBathroom}/>
+
       </ContentArea>
     );
   }
