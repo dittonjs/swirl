@@ -6,7 +6,7 @@ export default class FormElement extends React.Component {
     super();
     this.input = null;
   }
-  
+
   getValue(){
     return this.input.value;
   }
