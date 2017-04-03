@@ -30,7 +30,7 @@ export default class FindBathroom extends React.Component {
         const geoFire = new GeoFire(swirlFirebase.DATABASE.ref('geolocation'));
         const geoQuery = geoFire.query({
           center: [currentLocation.lat, currentLocation.lng],
-          radius: 0.01
+          radius: 1
         });
         geoQuery.on('key_entered', (key, location)=>{
           swirlFirebase.DATABASE.ref(`bathrooms/${key}`).once('value').then((snapshot)=>{
