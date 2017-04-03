@@ -67,6 +67,9 @@ export default class BathroomEdit extends ApplicationRoute {
         babyStation,
         isClean,
       }
+      swirlFirebase.DATABASE.ref(`users/${userId}/leaderBoardPoints`).once('value',(snapshot) => {
+        swirlFirebase.DATABASE.ref(`users/${userId}/leaderBoardPoints`).set(snapshot.val()+100);
+      });
       swirlFirebase.DATABASE.ref(`users/${userId}/bathrooms/${id}`).set(bathroom);
       swirlFirebase.DATABASE.ref(`bathrooms/${id}`).set(bathroom);
       const geoFire = new GeoFire(swirlFirebase.DATABASE.ref('geolocation'));

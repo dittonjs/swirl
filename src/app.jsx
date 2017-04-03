@@ -18,7 +18,8 @@ class App extends React.Component {
         UID: user.uid,
         displayName: user.displayName,
         email: user.email,
-        photoURL: user.photoURL
+        photoURL: user.photoURL,
+        leaderBoardPoints: 0
       });
     });
   }

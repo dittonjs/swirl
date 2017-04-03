@@ -16,11 +16,12 @@ export default class Profile extends ApplicationRoute {
   componentDidMount(){
     swirlFirebase.DATABASE.ref(`users/${window.localStorage.getItem('swirlUserId')}`).once('value').then((snapshot)=>{
       this.setState({
-        userData:snapshot.val()
+        userData:snapshot.val(),
       });
     });
     swirlFirebase.DATABASE.ref(`users/${window.localStorage.getItem('swirlUserId')}/bathrooms`).once('value').then((snapshot)=>{
       this.setState({
+        bathroms: snapshot.val(),
         bathroomCount: _.size(snapshot.val()),
       });
     });
@@ -30,7 +31,7 @@ export default class Profile extends ApplicationRoute {
     if(!this.state.userData){
       return null
     }
-    const {displayName, email}=this.state.userData;
+    const {displayName, email, leaderBoardPoints}=this.state.userData;
     return(
       <ContentArea pageName="Profile">
         <div className="info-container">
@@ -39,7 +40,7 @@ export default class Profile extends ApplicationRoute {
               <TblHdr hdrTxt="UserName" />
               <TblRow profileDataName="Name:" profileData= {displayName}/>
               <TblRow profileDataName="email:" profileData= {email}/>
-              <TblRow profileDataName="Points:" profileData="500" />
+              <TblRow profileDataName="Points:" profileData={leaderBoardPoints} />
               <TblRow profileDataName="Rank:" profileData="25543" />
               <TblRow profileDataName="Number of reviews:" profileData="10" />
               <TblRow profileDataName="Bathrooms Uploaded:" profileData={this.state.bathroomCount} />
@@ -48,6 +49,11 @@ export default class Profile extends ApplicationRoute {
               <TblHdr hdrTxt="Bio" />
               <TextArea elementID="bioText" labelName="Enter Bio Here" rowSize={20} colSize={105}/>
             </table>
+            <nav>
+              <ul className="scrollBathrooms">
+                BATHROOM STUFF INFO THINGS
+              </ul>
+            </nav>
           </div>
         </div>
       </ContentArea>
