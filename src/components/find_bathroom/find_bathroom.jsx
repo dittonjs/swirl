@@ -39,6 +39,10 @@ export default class FindBathroom extends React.Component {
               map: this.map
             }).addListener('click', ()=>{
               // do something with the bathroom data
+              this.setState({
+                open: true,
+                selectedBathroom: {...snapshot.val(), ID: key},
+              })
             });
           });
         });
@@ -47,9 +51,6 @@ export default class FindBathroom extends React.Component {
     }
   }
 
-  openInfoModal(bathroom){
-    this.setState({infoModalOpen: true, bathroom });
-  }
   closeModal(){
     this.setState({open: false});
   }
@@ -65,7 +66,7 @@ export default class FindBathroom extends React.Component {
         <div >
           <div style={{margin: 'auto', width: '80%', height: '70vh'}} ref={(el) => { this.mapDiv = el; }} />
         </div>
-        <BathroomInfoModal open={this.state.infoModalOpen} bathroom={this.state.selectedBathroom}/>
+        <BathroomInfoModal closeModal={() => this.closeModal()} open={this.state.open} bathroom={this.state.selectedBathroom}/>
 
       </ContentArea>
     );

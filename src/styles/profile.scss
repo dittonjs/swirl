@@ -38,3 +38,14 @@
   overflow: hidden;
   overflow-y: scroll;
 }
+
+ul {list-style-type: none; padding: 0px;}
+
+.list_item{
+  .flat-button{
+    float: right;
+  }
+  padding: 10px;
+  border-bottom: 1px solid $primary-accent;
+  margin: none;
+}
