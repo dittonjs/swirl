@@ -4,7 +4,7 @@ export default class LeaderboardTableHeader extends React.Component {
   render(){
     return (
       <tr>
-        <th>
+        <th className="leaderboard-header">
         {this.props.headerText}
         </th>
       </tr>

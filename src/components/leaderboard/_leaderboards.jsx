@@ -6,6 +6,7 @@ import LeaderboardTableLabel from './lb_tablelabel';
 import RaisedButton from '../material_components/material_button';
 import PageHeader from '../pageHeader';
 import ContentArea from '../content_area';
+import {swirlFirebase} from '../../database/firebase_controller';
 
 export default class Leaderboards extends React.Component {
   getLeaderBoardRows(){
@@ -22,18 +23,13 @@ export default class Leaderboards extends React.Component {
         <div className="leaderboard-box">
           <div className="paper-3">
             <h2>Top Users</h2>
-            <RaisedButton>Highest Points</RaisedButton>
-            <RaisedButton>Points per Review</RaisedButton>
-            <RaisedButton>Most Reviews</RaisedButton>
-            <table className="paper-2">
-                <LeaderboardTableHeader headerText="Table Header"/>
+            <table className="table-style">
                 <LeaderboardTableLabel/>
                 {this.getLeaderBoardRows()}
             </table>
           </div>
         </div>
       </ContentArea>
-
     );
   }
 }
