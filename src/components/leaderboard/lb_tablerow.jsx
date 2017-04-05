@@ -4,13 +4,13 @@ export default class LeaderboardTableRow extends React.Component{
   render(){
     return(
       <tr>
-        <td>
+        <td className="leaderboard-name">
           {this.props.userName}
         </td>
-        <td>
+        <td className="leaderboard-item">
           {this.props.userReviews}
         </td>
-        <td>
+        <td className="leaderboard-item">
           {this.props.userPoints}
         </td>
       </tr>

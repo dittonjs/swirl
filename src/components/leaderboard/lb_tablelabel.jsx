@@ -4,14 +4,14 @@ export default class LeaderboardTableLabel extends React.Component{
   render(){
     return(
       <tr>
-        <td>
-          Username
+        <td className="leaderboard-nameLabel">
+          <b>Username</b>
         </td>
-        <td>
-          Reviews
+        <td className="leaderboard-label">
+          <b>Reviews</b>
         </td>
-        <td>
-          Total Points
+        <td className="leaderboard-label">
+          <b>Total Points</b>
         </td>
       </tr>
     );
