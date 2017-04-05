@@ -21,7 +21,7 @@ export class Landing extends React.Component {
               <MaterialButton
                 type="flat"
                 className="landing-action-button"
-                onClick={() => hashHistory.push('/find_bathroom')}
+                onClick={() => hashHistory.push('/findBathroom')}
               >
                 FIND BATHROOM
               </MaterialButton>

@@ -1,6 +1,7 @@
 import React from 'react';
 import MaterialButton from './material_components/material_button';
 import { hashHistory } from 'react-router';
+import {swirlFirebase} from '../database/firebase_controller';
 export default class Sidebar extends React.Component {
 
   goTo(page){
@@ -53,7 +54,7 @@ export default class Sidebar extends React.Component {
           <MaterialButton
             type="flat"
             className="sidebar-button"
-            onClick={() => this.goTo("/")}
+            onClick={() => {swirlFirebase.AUTH.signOut(); this.goTo("/")}}
           >
             SIGN OUT
           </MaterialButton>
