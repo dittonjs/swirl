@@ -1,10 +1,15 @@
 .bathroomInfoModal{
   position: fixed;
   z-index: 2;
-  top: 120px;
+  top: 100px;
   left: 200px;
   right: 200px;
-  bottom: 60px;
+  bottom: 30px;
+  h4 {
+    margin: 5px;
+    color: grey;
+    font-weight: normal;
+  }
   .closeButton{
     position: absolute;
     bottom: 20px;
@@ -14,5 +19,16 @@
     position: absolute;
     bottom: 20px;
     left: 20px;
+  }
+  .comments {
+    height: 80px;
+    padding: 0px 10px;
+    border: 1px solid grey;
+    overflow: auto;
+    .comment {
+      font-size: .7em;
+      padding: 5px;
+      border-bottom: 1px solid grey;
+    }
   }
 }

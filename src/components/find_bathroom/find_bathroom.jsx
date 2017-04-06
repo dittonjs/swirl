@@ -66,8 +66,7 @@ export default class FindBathroom extends React.Component {
         <div >
           <div style={{margin: 'auto', width: '80%', height: '70vh'}} ref={(el) => { this.mapDiv = el; }} />
         </div>
-        <BathroomInfoModal closeModal={() => this.closeModal()} open={this.state.open} bathroom={this.state.selectedBathroom}/>
-
+        { !this.state.open ? null : <BathroomInfoModal closeModal={() => this.closeModal()} open={this.state.open} bathroom={this.state.selectedBathroom}/>}
       </ContentArea>
     );
   }
