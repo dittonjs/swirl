@@ -5,11 +5,11 @@ import ApplicationRoute from '../application_route';
 import ContentArea from '../content_area';
 import FormElement from '../material_components/formElement.jsx';
 import FormYesNo from '../material_components/formYesNo.jsx';
-import FormStar from '../material_components/formStars.jsx';
 import RaisedButton from '../material_components/material_button.jsx';
 import BusHours from './busHours';
 import FirebaseController, { swirlFirebase } from '../../database/firebase_controller';
 import GeoFire from 'geofire';
+import {hashHistory} from 'react-router';
 
 export default class BathroomEdit extends ApplicationRoute {
     constructor(){
@@ -57,6 +57,7 @@ export default class BathroomEdit extends ApplicationRoute {
       const babyStation = this.babyStation.getValue();
       const isClean = this.clean.getValue();
       const userId = FirebaseController.getCurrentUser().uid || window.localStorage.getItem('swirlUserId');
+	  const businessHours = this.businessHours.getBusinessHours();
       const {latLng} = this.state;
       let id = `${latLng.lat()}${latLng.lng()}`
       id = id.replace(/\./g, '-');
@@ -66,6 +67,7 @@ export default class BathroomEdit extends ApplicationRoute {
         runningWater,
         babyStation,
         isClean,
+		businessHours,
       }
       swirlFirebase.DATABASE.ref(`users/${userId}/leaderBoardPoints`).once('value',(snapshot) => {
         swirlFirebase.DATABASE.ref(`users/${userId}/leaderBoardPoints`).set(snapshot.val()+100);
@@ -76,16 +78,16 @@ export default class BathroomEdit extends ApplicationRoute {
       geoFire.set(id, [latLng.lat(), latLng.lng()]).then(()=>{}, (err)=>{
         console.log(err);
       });
+	  hashHistory.push('/findBathroom');
     }
 
     render() {
         return (
     		<ContentArea>
     			<FormElement ref={(el)=>{ this.bathroomName = el; }} labelName="Bathroom Location" elementID="bathroomName" inputType="text" placeholder="Office First Floor"/>
-    			<FormStar labelName="Bathroom Rating" elementID="bathroomRating"  />
     			<div>
     				<div>Select the location of the bathroom.</div>
-            <div style={{margin: 'auto', width: '80%', height: '70vh'}} ref={(el)=>{ this.mapDiv = el; }}></div>
+		            <div style={{margin: 'auto', width: '80%', height: '70vh'}} ref={(el)=>{ this.mapDiv = el; }}></div>
     			</div>
     			<BusHours ref={(el)=>{ this.businessHours = el; }}/>
     			<FormYesNo ref={(el)=>{ this.clean = el; }}labelName="Would you consider this bathroom to be clean?" elementID="clean" ans1="Yes" ans2="No"/>

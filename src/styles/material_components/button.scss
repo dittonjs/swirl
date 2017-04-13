@@ -43,3 +43,7 @@
 .raised-button {
   @include raised-button($secondary, white, white, 2s);
 }
+
+.redButton{
+	background-color: red;
+}

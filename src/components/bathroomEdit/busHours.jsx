@@ -3,6 +3,17 @@ import DateSelect from './dateSelect';
 import ApplicationRoute from '../application_route';
 
 export default class BusHours extends ApplicationRoute {
+	getBusinessHours(){
+		return{
+			mon:this.refs.mon.getTimeRange(),
+			tue:this.refs.tue.getTimeRange(),
+			wed:this.refs.wed.getTimeRange(),
+			thur:this.refs.thur.getTimeRange(),
+			fri:this.refs.fri.getTimeRange(),
+			sat:this.refs.sat.getTimeRange(),
+			sun:this.refs.sun.getTimeRange(),
+		}
+	}
     render() {
         return(
 			<div id="busHours">
@@ -11,13 +22,13 @@ export default class BusHours extends ApplicationRoute {
 				</div>
 				<input type="checkbox" name="notApplicable" id="notApplicable" />
 				<label htmlFor="notApplicable">N/A</label>
-				<DateSelect dayID="day_mon" dayName="Monday"/>
-				<DateSelect dayID="day_tue" dayName="Tuesday"/>
-				<DateSelect dayID="day_wed" dayName="Wednesday"/>
-				<DateSelect dayID="day_thur" dayName="Thursday"/>
-				<DateSelect dayID="day_fri" dayName="Friday"/>
-				<DateSelect dayID="day_sat" dayName="Saturday"/>
-				<DateSelect dayID="day_sun" dayName="Sunday"/>
+				<DateSelect ref="mon" dayID="day_mon" dayName="Monday"/>
+				<DateSelect ref="tue" dayID="day_tue" dayName="Tuesday"/>
+				<DateSelect ref="wed" dayID="day_wed" dayName="Wednesday"/>
+				<DateSelect ref="thur" dayID="day_thur" dayName="Thursday"/>
+				<DateSelect ref="fri" dayID="day_fri" dayName="Friday"/>
+				<DateSelect ref="sat" dayID="day_sat" dayName="Saturday"/>
+				<DateSelect ref="sun" dayID="day_sun" dayName="Sunday"/>
 			</div>
 		)
 }

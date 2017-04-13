@@ -2,6 +2,12 @@ import React from 'react';
 import ApplicationRoute from '../application_route';
 
 export default class DateSelect extends ApplicationRoute {
+	getTimeRange(){
+		return {
+			openTime: this.refs.openTime.value,
+			closeTime: this.refs.closeTime.value,
+		}
+	}
     render() {
         return(
 			<tr>
@@ -10,7 +16,8 @@ export default class DateSelect extends ApplicationRoute {
 					<label htmlFor={this.props.dayID}>{this.props.dayName}</label>
 				</td>
 					<td>
-						<select name={this.props.elementID} id={this.props.elementID}>
+						<select ref="openTime" name={this.props.elementID} id={this.props.elementID}>
+							{ /*TODO FIX THE VALUE HERE*/}
 							<option value="0">12:00 AM</option>
 							<option value="1">1:00 AM</option>
 							<option value="2">2:00 AM</option>
@@ -42,7 +49,7 @@ export default class DateSelect extends ApplicationRoute {
 						-to-
 					</td>
 					<td>
-						<select name={this.props.elementID} id={this.props.elementID}>
+						<select ref="closeTime" name={this.props.elementID} id={this.props.elementID}>
 							<option value="0">12:00 AM</option>
 							<option value="1">1:00 AM</option>
 							<option value="2">2:00 AM</option>

@@ -1,4 +1,5 @@
 .bathroomInfoModal{
+  overflow-y:scroll;
   position: fixed;
   z-index: 2;
   top: 100px;
@@ -11,24 +12,33 @@
     font-weight: normal;
   }
   .closeButton{
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
+	margin-top:10px;
+    // position: absolute;
+    // bottom: 20px;
+    // right: 20px;
+	float:right;
   }
   .saveButton{
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
+	margin-top:10px;
+    	// position: absolute;
+    // bottom: 20px;
+    // left: 20px;
   }
-  .comments {
+.comments {
     height: 80px;
     padding: 0px 10px;
-    border: 1px solid grey;
+    // border: 1px solid grey;
     overflow: auto;
-    .comment {
+	.commentContainer{
       font-size: .7em;
       padding: 5px;
       border-bottom: 1px solid grey;
-    }
-  }
+	    .comment {
+	    }
+		.comment-userName{
+			margin-top: 10px;
+		}
+	}
+}
+
 }
