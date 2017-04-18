@@ -36,7 +36,8 @@ export default class FindBathroom extends React.Component {
           swirlFirebase.DATABASE.ref(`bathrooms/${key}`).once('value').then((snapshot)=>{
             new google.maps.Marker({
               position: {lat: location[0], lng: location[1]},
-              map: this.map
+              map: this.map,
+              icon: 'http://pix.iemoji.com/sams33/0566.png'
             }).addListener('click', ()=>{
               // do something with the bathroom data
               this.setState({
