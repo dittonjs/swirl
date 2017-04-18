@@ -47,6 +47,7 @@ export default class FindBathroom extends React.Component {
           });
         });
       }, (err) => {
+        debugger
       });
     }
   }

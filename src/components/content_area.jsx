@@ -11,7 +11,6 @@ const select = (state)=>({
 export class ContentArea extends React.Component {
 
   render() {
-    console.log(this.props);
     const overlayClass = this.props.sidebarOpen ? "overlay overlay-open" : "overlay";
     return (
       <div className="main-content">

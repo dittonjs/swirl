@@ -67,7 +67,8 @@ export default class BathroomEdit extends ApplicationRoute {
         runningWater,
         babyStation,
         isClean,
-		businessHours,
+		    businessHours,
+        creatorId: userId
       }
       swirlFirebase.DATABASE.ref(`users/${userId}/leaderBoardPoints`).once('value',(snapshot) => {
         swirlFirebase.DATABASE.ref(`users/${userId}/leaderBoardPoints`).set(snapshot.val()+100);
