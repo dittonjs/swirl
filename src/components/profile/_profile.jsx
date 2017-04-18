@@ -53,7 +53,7 @@ export default class Profile extends ApplicationRoute {
     if(!this.state.userData){
       return null
     }
-    console.log(this.state.userData);
+
     const {displayName, email, leaderBoardPoints}=this.state.userData;
     return(
       <ContentArea pageName="Profile">
