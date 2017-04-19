@@ -3,12 +3,12 @@ import MaterialButton from '../material_components/material_button';
 
 
 
-export default function bathroomListItem(props){
+export default function commonListItem(props){
   return(
     <li className='list_item'>
-      {props.bathroom.bathroomName}
+      {props.children}
       <MaterialButton type='flat'
-        onClick={() => props.deleteBathroom(props.bathroomID)}>
+        onClick={props.deleteItem}>
         DELETE
       </MaterialButton>
     </li>

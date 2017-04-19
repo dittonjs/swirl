@@ -14,7 +14,11 @@ import GeoFire from 'geofire'
 export default class Profile extends ApplicationRoute {
   constructor(){
     super();
-    this.state={userData:null}
+    this.state={
+      userData:null,
+      bathrooms: null,
+      comments: null,
+    }
   }
   componentDidMount(){
     swirlFirebase.DATABASE.ref(`users/${window.localStorage.getItem('swirlUserId')}`).on('value', (snapshot)=>{
@@ -48,9 +52,15 @@ export default class Profile extends ApplicationRoute {
     geoFire.remove(bathroomID)
   }
 
+<<<<<<< HEAD
   deleteReview(reviewID){
     swirlFirebase.DATABASE.ref(`users/${window.localStorage.getItem('swirlUserId')}/reviews/${reviewID}`).remove();
     swirlFirebase.DATABASE.ref(`reviews/${reviewID}`).remove();
+=======
+  deleteReview(reviewId, bathroomId){
+    swirlFirebase.DATABASE.ref(`users/${window.localStorage.getItem('swirlUserId')}/reviews/${reviewId}`).remove();
+    swirlFirebase.DATABASE.ref(`bathrooms/${bathroomId}/reviews/${reviewId}`).remove();
+>>>>>>> 8ac9da45fed23ec5b50df811463ead4caad07e79
   }
 
   // some router stuff for an example
@@ -58,6 +68,7 @@ export default class Profile extends ApplicationRoute {
     if(!this.state.userData){
       return null
     }
+
     const {displayName, email, leaderBoardPoints}=this.state.userData;
     return(
       <ContentArea pageName="Profile">
@@ -82,11 +93,24 @@ export default class Profile extends ApplicationRoute {
                 {_.map(this.state.bathrooms, (bathroom, key) => (
                   <BathroomList
                     key={key}
-                    bathroom={bathroom}
-                    bathroomID={key}
-                    deleteBathroom={(...args) => {this.deleteBathroom(...args)}}
-                    />
-                  ))}
+                    deleteItem={() => {this.deleteBathroom(key)}}
+                  >
+                    {bathroom.bathroomName}
+                  </BathroomList>
+                ))}
+              </ul>
+            </nav>
+            MY COMMENTS
+            <nav>
+              <ul className="scrollBathrooms">
+                {_.map(this.state.userData.reviews, (review, key) => (
+                  <BathroomList
+                    key={key}
+                    deleteItem={() => {this.deleteReview(key, review.bathroomId)}}
+                  >
+                    {review.text}
+                  </BathroomList>
+                ))}
               </ul>
             </nav>
             MY REVIEWS
