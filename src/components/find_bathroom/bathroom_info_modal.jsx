@@ -3,7 +3,6 @@ import _     from 'lodash';
 import MaterialButton from '../material_components/material_button';
 import FormTextArea from '../material_components/formTextArea.jsx';
 import {swirlFirebase} from '../../database/firebase_controller';
-import FirebaseController from '../../database/firebase_controller';
 
 export default class BathroomInfoModal extends React.Component {
   constructor(){
@@ -26,14 +25,89 @@ export default class BathroomInfoModal extends React.Component {
       text,
       userId: window.localStorage.getItem('swirlUserId'),
       bathroomId: this.props.bathroom.ID,
-	  userName:FirebaseController.getCurrentUser().displayName
     }
     const reviewKey = swirlFirebase.DATABASE.ref().child(`bathroom/${this.props.bathroom.ID}/reviews`).push().key;
     swirlFirebase.DATABASE.ref(`bathrooms/${this.props.bathroom.ID}/reviews/${reviewKey}`).set(comment);
     swirlFirebase.DATABASE.ref(`users/${window.localStorage.getItem('swirlUserId')}/reviews/${reviewKey}`).set(comment);
-	var userName = FirebaseController.getCurrentUser().displayName;
-	console.log(userName);
     this.props.closeModal();
+  }
+
+  saveThumbUp(){
+    const bathroomCreatorID = swirlFirebase.DATABASE.ref(`bathrooms/${this.props.bathroom.ID}/creatorID`).once('value');
+    debugger
+    swirlFirebase.DATABASE.ref(`thumbs/${this.props.bathroom.ID}/${window.localStorage.getItem('swirlUserId')}`).once('value').then((snapshot)=>{
+      debugger
+      if(!snapshot.val()){
+        const thumbs = {
+          thumbUp: true,
+          thumbDown: false,
+        }
+        swirlFirebase.DATABASE.ref(`users/${window.localStorage.getItem('swirlUserId')}/bathrooms/${this.props.bathroom.ID}/thisUserThumbed`).set(true);
+        swirlFirebase.DATABASE.ref(`thumbs/${this.props.bathroom.ID}/${window.localStorage.getItem('swirlUserId')}`).set(thumbs);
+        swirlFirebase.DATABASE.ref(`bathrooms/${this.props.bathroom.ID}/numThumbsUp`).once('value',(snapshot) => {
+          swirlFirebase.DATABASE.ref(`bathrooms/${this.props.bathroom.ID}/numThumbsUp`).set(snapshot.val()+1);
+        });
+        swirlFirebase.DATABASE.ref(`users/${window.localStorage.getItem('swirlUserId')}/leaderBoardPoints`).once('value',(snapshot) => {
+          swirlFirebase.DATABASE.ref(`users/${window.localStorage.getItem('swirlUserId')}/leaderBoardPoints`).set(snapshot.val()+10);
+        });
+        swirlFirebase.DATABASE.ref(`users/${bathroomCreatorID}/leaderBoardPoints`).once('value',(snapshot) => {
+          swirlFirebase.DATABASE.ref(`users/${bathroomCreatorID}/leaderBoardPoints`).set(snapshot.val()+10);
+        });
+      } else if(snapshot.val().thumbDown){
+        const thumbs = {
+          thumbUp: true,
+          thumbDown: false,
+        }
+        swirlFirebase.DATABASE.ref(`thumbs/${this.props.bathroom.ID}/${window.localStorage.getItem('swirlUserId')}`).set(thumbs);
+        swirlFirebase.DATABASE.ref(`bathrooms/${this.props.bathroom.ID}/numThumbsUp`).once('value',(snapshot) => {
+          swirlFirebase.DATABASE.ref(`bathrooms/${this.props.bathroom.ID}/numThumbsUp`).set(snapshot.val()+1);
+        });
+        swirlFirebase.DATABASE.ref(`bathrooms/${this.props.bathroom.ID}/numThumbsDown`).once('value',(snapshot) => {
+          swirlFirebase.DATABASE.ref(`bathrooms/${this.props.bathroom.ID}/numThumbsDown`).set(snapshot.val()-1);
+        });
+        swirlFirebase.DATABASE.ref(`users/${bathroomCreatorID}/leaderBoardPoints`).once('value',(snapshot) => {
+          swirlFirebase.DATABASE.ref(`users/${bathroomCreatorID}/leaderBoardPoints`).set(snapshot.val()+20);
+        });
+      }
+    });
+  }
+
+  saveThumbDown(){
+    const bathroomCreatorID = swirlFirebase.DATABASE.ref(`bathrooms/${this.props.bathroom.ID}/creatorID`).once('value');
+    swirlFirebase.DATABASE.ref(`thumbs/${this.props.bathroom.ID}/${window.localStorage.getItem('swirlUserId')}`).once('value').then((snapshot)=>{
+      if(!snapshot.val()){
+        const thumbs = {
+          thumbUp: false,
+          thumbDown: true,
+        }
+        swirlFirebase.DATABASE.ref(`users/${window.localStorage.getItem('swirlUserId')}/bathrooms/${this.props.bathroom.ID}/thisUserThumbed`).set(true);
+        swirlFirebase.DATABASE.ref(`thumbs/${this.props.bathroom.ID}/${window.localStorage.getItem('swirlUserId')}`).set(thumbs);
+        swirlFirebase.DATABASE.ref(`bathrooms/${this.props.bathroom.ID}/numThumbsDown`).once('value',(snapshot) => {
+          swirlFirebase.DATABASE.ref(`bathrooms/${this.props.bathroom.ID}/numThumbsDown`).set(snapshot.val()+1);
+        });
+        swirlFirebase.DATABASE.ref(`users/${window.localStorage.getItem('swirlUserId')}/leaderBoardPoints`).once('value',(snapshot) => {
+          swirlFirebase.DATABASE.ref(`users/${window.localStorage.getItem('swirlUserId')}/leaderBoardPoints`).set(snapshot.val()+10);
+        });
+        swirlFirebase.DATABASE.ref(`users/${bathroomCreatorID}/leaderBoardPoints`).once('value',(snapshot) => {
+          swirlFirebase.DATABASE.ref(`users/${bathroomCreatorID}/leaderBoardPoints`).set(snapshot.val()-10);
+        });
+      } else if(snapshot.val().thumbUp){
+        const thumbs = {
+          thumbUp: false,
+          thumbDown: true,
+        }
+        swirlFirebase.DATABASE.ref(`thumbs/${this.props.bathroom.ID}/${window.localStorage.getItem('swirlUserId')}`).set(thumbs);
+        swirlFirebase.DATABASE.ref(`bathrooms/${this.props.bathroom.ID}/numThumbsDown`).once('value',(snapshot) => {
+          swirlFirebase.DATABASE.ref(`bathrooms/${this.props.bathroom.ID}/numThumbsDown`).set(snapshot.val()+1);
+        });
+        swirlFirebase.DATABASE.ref(`bathrooms/${this.props.bathroom.ID}/numThumbsUp`).once('value',(snapshot) => {
+          swirlFirebase.DATABASE.ref(`bathrooms/${this.props.bathroom.ID}/numThumbsUp`).set(snapshot.val()-1);
+        });
+        swirlFirebase.DATABASE.ref(`users/${bathroomCreatorID}/leaderBoardPoints`).once('value',(snapshot) => {
+          swirlFirebase.DATABASE.ref(`users/${bathroomCreatorID}/leaderBoardPoints`).set(snapshot.val()-20);
+        });
+      }
+    });
   }
 
   render(){
@@ -57,8 +131,8 @@ export default class BathroomInfoModal extends React.Component {
         </div>
         <div className="formElement">
             <div className="elementBottom">
-                <MaterialButton><i className="material-icons">thumb_up</i></MaterialButton>
-                <MaterialButton className="redButton"><i className="material-icons">thumb_down</i></MaterialButton>
+                <MaterialButton onClick={() => {this.saveThumbUp()}}><i className="material-icons">thumb_up</i></MaterialButton>
+                <MaterialButton onClick={() => {this.saveThumbDown()}}><i className="material-icons">thumb_down</i></MaterialButton>
                 <FormTextArea ref={el=>{this.textarea=el}} elementID="reviewText" labelName="Add a comment"/>
             </div>
         </div>
@@ -67,10 +141,7 @@ export default class BathroomInfoModal extends React.Component {
           {
             _.map(this.state.comments, (comment, key) => {
               return (
-				  <div key={key} className="commentContainer">
-	                <div className="comment">{comment.text}</div>
-	                <div className="comment-userName">-{comment.userName}</div>
-				  </div>
+                <div key={key} className="comment">{comment.text}</div>
               );
             })
           }

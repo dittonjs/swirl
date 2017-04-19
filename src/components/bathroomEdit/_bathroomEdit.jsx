@@ -56,8 +56,8 @@ export default class BathroomEdit extends ApplicationRoute {
       const runningWater = this.runningWater.getValue();
       const babyStation = this.babyStation.getValue();
       const isClean = this.clean.getValue();
-      const userId = FirebaseController.getCurrentUser().uid || window.localStorage.getItem('swirlUserId');
-	  const businessHours = this.businessHours.getBusinessHours();
+      const creatorID = FirebaseController.getCurrentUser().uid || window.localStorage.getItem('swirlUserId');
+	    const businessHours = this.businessHours.getBusinessHours();
       const {latLng} = this.state;
       let id = `${latLng.lat()}${latLng.lng()}`
       id = id.replace(/\./g, '-');
@@ -67,12 +67,26 @@ export default class BathroomEdit extends ApplicationRoute {
         runningWater,
         babyStation,
         isClean,
-		businessHours,
+		    businessHours,
+        creatorID,
+        numThumbsUp: 0,
+        numThumbsDown: 0,
       }
-      swirlFirebase.DATABASE.ref(`users/${userId}/leaderBoardPoints`).once('value',(snapshot) => {
-        swirlFirebase.DATABASE.ref(`users/${userId}/leaderBoardPoints`).set(snapshot.val()+100);
+      const userBathroom = {
+        bathroomName,
+        handicap,
+        runningWater,
+        babyStation,
+        isClean,
+		    businessHours,
+        numThumbsUp: 0,
+        numThumbsDown: 0,
+        thisUserThumbed: false,
+      }
+      swirlFirebase.DATABASE.ref(`users/${creatorID}/leaderBoardPoints`).once('value',(snapshot) => {
+        swirlFirebase.DATABASE.ref(`users/${creatorID}/leaderBoardPoints`).set(snapshot.val()+100);
       });
-      swirlFirebase.DATABASE.ref(`users/${userId}/bathrooms/${id}`).set(bathroom);
+      swirlFirebase.DATABASE.ref(`users/${creatorID}/bathrooms/${id}`).set(userBathroom);
       swirlFirebase.DATABASE.ref(`bathrooms/${id}`).set(bathroom);
       const geoFire = new GeoFire(swirlFirebase.DATABASE.ref('geolocation'));
       geoFire.set(id, [latLng.lat(), latLng.lng()]).then(()=>{}, (err)=>{
