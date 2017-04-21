@@ -12,20 +12,20 @@ export default class Leaderboards extends React.Component {
 	constructor(){
 		super();
 		this.state = {
-			users:{}	
+			users:{}
 		}
 	}
 	componentWillMount(){
 		 swirlFirebase.DATABASE.ref("users").once("value",(snapshot)=>{
 			this.setState({
 				users:_.sortBy(_.toArray(snapshot.val()),["leaderBoardPoints"])
-			}); 
+			});
 		 })
 	}
   getLeaderBoardRows(){
-    //The current users listed are dummy data; Will be retrieved from database later.
     return _.map(this.state.users, (user)=>{
-      return <LeaderboardTableRow userName={user.userName} userReviews={user.userReviews} userPoints={user.leaderBoardPoints}/>
+      user.bathroom
+      return <LeaderboardTableRow userName={user.displayName} userReviews={_.size(user.reviews)} userPoints={user.leaderBoardPoints}/>
     });
   }
   render(){
