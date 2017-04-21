@@ -53,6 +53,7 @@
     "geofire": "^4.1.2",
     "google-map-react": "^0.23.0",
     "install": "^0.8.8",
+    "jquery": "^3.2.1",
     "npm": "^4.4.4",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",

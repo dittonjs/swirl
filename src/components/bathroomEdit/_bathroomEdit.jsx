@@ -5,6 +5,7 @@ import ApplicationRoute from '../application_route';
 import ContentArea from '../content_area';
 import FormElement from '../material_components/formElement.jsx';
 import FormYesNo from '../material_components/formYesNo.jsx';
+import StarRater from './starRater.jsx';
 import RaisedButton from '../material_components/material_button.jsx';
 import BusHours from './busHours';
 import FirebaseController, { swirlFirebase } from '../../database/firebase_controller';
@@ -99,6 +100,7 @@ export default class BathroomEdit extends ApplicationRoute {
         return (
     		<ContentArea>
     			<FormElement ref={(el)=>{ this.bathroomName = el; }} labelName="Bathroom Location" elementID="bathroomName" inputType="text" placeholder="Office First Floor"/>
+				<StarRater/>
     			<div>
     				<div>Select the location of the bathroom.</div>
 		            <div style={{margin: 'auto', width: '80%', height: '70vh'}} ref={(el)=>{ this.mapDiv = el; }}></div>

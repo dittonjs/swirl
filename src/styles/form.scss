@@ -54,3 +54,20 @@ label{
 	margin-top:20px;
 	margin-bottom:20px;
 }
+
+
+.star{
+	background-repeat: no-repeat;
+	background-size: 40px 40px;
+	min-height: 45px;
+	min-width: 45px;
+	display: inline-block;
+}
+
+.yellowStar{
+	background-image: url("images/yellowStar.png");
+}
+
+.grayStar{
+	background-image: url("images/grayStar.png");
+}

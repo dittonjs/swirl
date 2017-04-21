@@ -25,7 +25,7 @@ export default class Leaderboards extends React.Component {
   getLeaderBoardRows(){
     //The current users listed are dummy data; Will be retrieved from database later.
     return _.map(this.state.users, (user)=>{
-      return <LeaderboardTableRow userName={user.userName} userReviews={user.userReviews} userPoints={user.leaderBoardPoints}/>
+      return <LeaderboardTableRow userName={user.userName} userReviews={user.userReviews} userPoints={user.userPoints}/>
     });
   }
   render(){
