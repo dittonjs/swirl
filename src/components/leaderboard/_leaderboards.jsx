@@ -24,7 +24,6 @@ export default class Leaderboards extends React.Component {
 	}
   getLeaderBoardRows(){
     return _.map(this.state.users, (user)=>{
-      user.bathroom
       return <LeaderboardTableRow userName={user.displayName} userReviews={_.size(user.reviews)} userPoints={user.leaderBoardPoints}/>
     });
   }
