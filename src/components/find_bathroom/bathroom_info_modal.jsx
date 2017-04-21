@@ -3,6 +3,7 @@ import _     from 'lodash';
 import MaterialButton from '../material_components/material_button';
 import FormTextArea from '../material_components/formTextArea.jsx';
 import {swirlFirebase} from '../../database/firebase_controller';
+import FirebaseController from '../../database/firebase_controller';
 
 export default class BathroomInfoModal extends React.Component {
   constructor(){
@@ -19,19 +20,6 @@ export default class BathroomInfoModal extends React.Component {
     });
   }
 
-  thumb(value){
-    const userId = this.props.bathroom.creatorId;
-    console.log(this.props.bathroom);
-    swirlFirebase.DATABASE.ref(`users/${userId}/leaderBoardPoints`).once('value',(snapshot) => {
-      if(value){
-        swirlFirebase.DATABASE.ref(`users/${userId}/leaderBoardPoints`).set(snapshot.val() + 10);
-      } else {
-        swirlFirebase.DATABASE.ref(`users/${userId}/leaderBoardPoints`).set(snapshot.val() - 10);
-      }
-      this.setState({thumb: true});
-    });
-  }
-
   saveComment(){
     const text = this.textarea.getValue();
 
@@ -39,19 +27,13 @@ export default class BathroomInfoModal extends React.Component {
       text,
       userId: window.localStorage.getItem('swirlUserId'),
       bathroomId: this.props.bathroom.ID,
-<<<<<<< HEAD
-=======
-	    userName:FirebaseController.getCurrentUser().displayName
->>>>>>> 8ac9da45fed23ec5b50df811463ead4caad07e79
+    userName:FirebaseController.getCurrentUser().displayName
     }
     const reviewKey = swirlFirebase.DATABASE.ref().child(`bathroom/${this.props.bathroom.ID}/reviews`).push().key;
     swirlFirebase.DATABASE.ref(`bathrooms/${this.props.bathroom.ID}/reviews/${reviewKey}`).set(comment);
     swirlFirebase.DATABASE.ref(`users/${window.localStorage.getItem('swirlUserId')}/reviews/${reviewKey}`).set(comment);
-<<<<<<< HEAD
-=======
+	//TODO IS THIS RIGHT?
     var userName = FirebaseController.getCurrentUser().displayName;
-    console.log(userName);
->>>>>>> 8ac9da45fed23ec5b50df811463ead4caad07e79
     this.props.closeModal();
   }
 
@@ -154,15 +136,8 @@ export default class BathroomInfoModal extends React.Component {
         </div>
         <div className="formElement">
             <div className="elementBottom">
-<<<<<<< HEAD
                 <MaterialButton onClick={() => {this.saveThumbUp()}}><i className="material-icons">thumb_up</i></MaterialButton>
                 <MaterialButton onClick={() => {this.saveThumbDown()}}><i className="material-icons">thumb_down</i></MaterialButton>
-=======
-                { !this.state.thumb ? <div>
-                  <MaterialButton onClick={() => this.thumb(true)}><i className="material-icons">thumb_up</i></MaterialButton>
-                  <MaterialButton onClick={() => this.thumb(false)}className="redButton"><i className="material-icons">thumb_down</i></MaterialButton>
-                </div> : null }
->>>>>>> 8ac9da45fed23ec5b50df811463ead4caad07e79
                 <FormTextArea ref={el=>{this.textarea=el}} elementID="reviewText" labelName="Add a comment"/>
             </div>
         </div>

@@ -52,15 +52,9 @@ export default class Profile extends ApplicationRoute {
     geoFire.remove(bathroomID)
   }
 
-<<<<<<< HEAD
   deleteReview(reviewID){
     swirlFirebase.DATABASE.ref(`users/${window.localStorage.getItem('swirlUserId')}/reviews/${reviewID}`).remove();
     swirlFirebase.DATABASE.ref(`reviews/${reviewID}`).remove();
-=======
-  deleteReview(reviewId, bathroomId){
-    swirlFirebase.DATABASE.ref(`users/${window.localStorage.getItem('swirlUserId')}/reviews/${reviewId}`).remove();
-    swirlFirebase.DATABASE.ref(`bathrooms/${bathroomId}/reviews/${reviewId}`).remove();
->>>>>>> 8ac9da45fed23ec5b50df811463ead4caad07e79
   }
 
   // some router stuff for an example
