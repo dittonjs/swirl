@@ -11,9 +11,8 @@ export default class Register extends React.Component {
         window.localStorage.setItem('swirlUserId', user.uid);
         swirlFirebase.DATABASE.ref('users/' + user.uid).set({
           UID: user.uid,
-          displayName: user.displayName,
+          displayName: user.email,
           email: user.email,
-          photoURL: user.photoURL,
           leaderBoardPoints: 0
         });
         hashHistory.push('/profile');
