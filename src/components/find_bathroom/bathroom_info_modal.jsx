@@ -10,7 +10,8 @@ export default class BathroomInfoModal extends React.Component {
     super();
     this.state = {
       comments: {},
-      thumb: false
+      thumb: false,
+      error: '',
     }
   }
 
@@ -35,7 +36,10 @@ export default class BathroomInfoModal extends React.Component {
 
   saveComment(){
     const text = this.textarea.getValue();
-
+    if(!text || !text.length){
+      this.setState({error: 'You cannot save an empty comment.'});
+      return;
+    }
     const comment = {
       text,
       userId: window.localStorage.getItem('swirlUserId'),
@@ -91,6 +95,7 @@ export default class BathroomInfoModal extends React.Component {
             })
           }
         </div>
+        <div>{this.state.error}</div>
         <MaterialButton className="closeButton" type="flat"
           onClick={this.props.closeModal}>
           CLOSE
