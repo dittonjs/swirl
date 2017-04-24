@@ -3,6 +3,7 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import App                                        from './app';
 import Landing                                    from './components/landing';
 import Login                                      from './components/login';
+import Register                                   from './components/register';
 import Leaderboard                                from './components/leaderboard/_leaderboards'
 import Profile                                    from './components/profile/_profile';
 import BathroomEdit                               from './components/bathroomEdit/_bathroomEdit';
@@ -14,6 +15,7 @@ export default (
     <Route path="/" component={App}>
       <IndexRoute component={Landing} />
       <Route path="/login" component={Login} />
+      <Route path="/register" component={Register} />
       <Route path="/leaderboard" component={Leaderboard} />
       <Route path="/profile" component={Profile} />
       <Route path="/bathroomEdit" component={BathroomEdit} />
