@@ -1,10 +1,19 @@
 import React from 'react';
 import DateSelect from './dateSelect';
 import ApplicationRoute from '../application_route';
+import $ from 'jquery';
 
 export default class BusHours extends ApplicationRoute {
 	getBusinessHours(){
+		var na;
+		if($("#notApplicable:checked").length > 0){
+			na = 1;
+		}else{
+			na = 0;
+		}
+
 		return{
+			na:na,
 			mon:this.refs.mon.getTimeRange(),
 			tue:this.refs.tue.getTimeRange(),
 			wed:this.refs.wed.getTimeRange(),

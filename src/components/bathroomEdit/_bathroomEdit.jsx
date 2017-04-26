@@ -11,6 +11,7 @@ import BusHours from './busHours';
 import FirebaseController, { swirlFirebase } from '../../database/firebase_controller';
 import GeoFire from 'geofire';
 import {hashHistory} from 'react-router';
+import $ from 'jquery';
 
 export default class BathroomEdit extends ApplicationRoute {
     constructor(){
@@ -51,35 +52,83 @@ export default class BathroomEdit extends ApplicationRoute {
       }
     }
 
+	getIsChecked(elementID){
+		if($("#"+elementID+":checked").length > 0 ){
+			return 1;
+		}else{
+			return -1;
+		}
+	}
+
     submitBathroom(){
       const bathroomName = this.bathroomName.getValue();
-      const handicap = this.handicap.getValue();
+	  const stars = this.stars.getStarAmount().starAmount;
+	  const handicap = this.handicap.getValue();
       const runningWater = this.runningWater.getValue();
       const babyStation = this.babyStation.getValue();
       const isClean = this.clean.getValue();
       const creatorID = FirebaseController.getCurrentUser().uid || window.localStorage.getItem('swirlUserId');
-	    const businessHours = this.businessHours.getBusinessHours();
-      const {latLng} = this.state;
+	  const additionalInfo = $("#additionalInfo").val();
+	  const businessHours = this.businessHours.getBusinessHours();
+	  const malePublic = this.getIsChecked("gender_mp");
+	  const femalePublic = this.getIsChecked("gender_fp");
+	  const neutralPublic = this.getIsChecked("gender_np");
+	  const malePrivate = this.getIsChecked("gender_mpr");
+	  const femalePrivate = this.getIsChecked("gender_fpr");
+	  const neutralPrivate = this.getIsChecked("gender_npr");
+	  const {latLng} = this.state;
+	  //Start Validation:
+	  if(stars == 0){
+		  alert("Please add a star amount to the bathroom");
+		  return;
+	  }
+	  if(!latLng){
+		  alert("Please select the bathroom location on the map");
+		  return;
+	  }
+	  if(!bathroomName){
+		  alert("Please give this bathroom a name.");
+		  return;
+	  }
       let id = `${latLng.lat()}${latLng.lng()}`
       id = id.replace(/\./g, '-');
       const bathroom = {
         bathroomName,
+		stars,
         handicap,
         runningWater,
         babyStation,
         isClean,
-		    businessHours,
+		additionalInfo,
+	    businessHours,
         creatorID,
+		malePublic,
+		malePrivate,
+		femalePrivate,
+		femalePublic,
+		neutralPublic,
+		neutralPrivate,
         numThumbsUp: 0,
         numThumbsDown: 0,
       }
+	  console.log(bathroom);
+	return;
+
       const userBathroom = {
         bathroomName,
+		stars,
         handicap,
         runningWater,
         babyStation,
         isClean,
-		    businessHours,
+		additionalInfo,
+	    businessHours,
+		malePublic,
+		malePrivate,
+		femalePrivate,
+		femalePublic,
+		neutralPublic,
+		neutralPrivate,
         numThumbsUp: 0,
         numThumbsDown: 0,
         thisUserThumbed: false,
@@ -100,10 +149,10 @@ export default class BathroomEdit extends ApplicationRoute {
         return (
     		<ContentArea>
     			<FormElement ref={(el)=>{ this.bathroomName = el; }} labelName="Bathroom Location" elementID="bathroomName" inputType="text" placeholder="Office First Floor"/>
-				<StarRater/>
+				<StarRater allowEdit="true" starAmount="0" ref={(el)=>{ this.stars = el; }}/>
     			<div>
-    				<div>Select the location of the bathroom.</div>
-		            <div style={{margin: 'auto', width: '80%', height: '70vh'}} ref={(el)=>{ this.mapDiv = el; }}></div>
+    				<label style={{marginBottom: "10px"}} >Location of the bathroom.</label>
+		            <div style={{margin: '10px 0px 10px 15px', width: '80%', height: '70vh'}} ref={(el)=>{ this.mapDiv = el; }}></div>
     			</div>
     			<BusHours ref={(el)=>{ this.businessHours = el; }}/>
     			<FormYesNo ref={(el)=>{ this.clean = el; }}labelName="Would you consider this bathroom to be clean?" elementID="clean" ans1="Yes" ans2="No"/>
@@ -115,17 +164,17 @@ export default class BathroomEdit extends ApplicationRoute {
     					<label htmlFor="gender">What kind of bathrooms are available?</label>
     				</div>
     				<div className="elementBottom">
-    					<input type="checkbox" name="gender['mp']" />
+    					<input type="checkbox" id="gender_mp" />
                         Male Public<br/>
-    					<input type="checkbox" name="gender['fp']" />
+						<input type="checkbox" id="gender_fp" />
                         Female Public<br/>
-    					<input type="checkbox" name="gender['np']" />
+						<input type="checkbox" id="gender_np" />
                         Gender Neutral Public<br/>
-    					<input type="checkbox" name="gender['mpr']" />
+						<input type="checkbox" id="gender_mpr" />
                         Male Single<br/>
-    					<input type="checkbox" name="gender['fpr']" />
+						<input type="checkbox" id="gender_fpr" />
                         Female Single<br/>
-    					<input type="checkbox" name="gender['npr']" />
+						<input type="checkbox" id="gender_npr" />
                         Gender Neutral Single<br/>
     				</div>
     			</div>
@@ -134,7 +183,7 @@ export default class BathroomEdit extends ApplicationRoute {
     					<label htmlFor="gender">Special Directions to find bathroom/ additional comments</label>
     				</div>
     				<div className="elementBottom">
-                        <textarea rows="5" cols="40"></textarea>
+                        <textarea id="additionalInfo" rows="5" cols="40"></textarea>
     				</div>
     			</div>
                 <RaisedButton onClick={() => this.submitBathroom()}>Save</RaisedButton>

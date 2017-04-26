@@ -4,6 +4,8 @@ import MaterialButton from '../material_components/material_button';
 import FormTextArea from '../material_components/formTextArea.jsx';
 import {swirlFirebase} from '../../database/firebase_controller';
 import FirebaseController from '../../database/firebase_controller';
+import StarRater from '../bathroomEdit/starRater.jsx';
+import $ from 'jquery';
 
 export default class BathroomInfoModal extends React.Component {
   constructor(){
@@ -119,6 +121,48 @@ export default class BathroomInfoModal extends React.Component {
     });
   }
 
+  displayDay(openTime, closeTime, dayName){
+	if(openTime == "-1"){
+		return;
+	}
+	$("#businessHoursAppend").append("<div>"+dayName+": "+openTime+"-"+closeTime+"</div>")
+  }
+
+  getBusinessHours(){
+	  console.log(this.props.bathroom);
+	  if(this.props.bathroom.businessHours.na){
+		  return " N/A";
+	  }else{
+		  var businessHours;
+		  businessHours = "" +
+		  this.displayDay(this.props.bathroom.businessHours.mon.openTime,this.props.bathroom.businessHours.mon.closeTime,"Mon");
+		  this.displayDay(this.props.bathroom.businessHours.tue.openTime,this.props.bathroom.businessHours.tue.closeTime,"Tue");
+		  this.displayDay(this.props.bathroom.businessHours.wed.openTime,this.props.bathroom.businessHours.wed.closeTime,"Wed");
+		  this.displayDay(this.props.bathroom.businessHours.thur.openTime,this.props.bathroom.businessHours.thur.closeTime,"Thur");
+		  this.displayDay(this.props.bathroom.businessHours.fri.openTime,this.props.bathroom.businessHours.fri.closeTime,"Fri");
+		  this.displayDay(this.props.bathroom.businessHours.sat.openTime,this.props.bathroom.businessHours.sat.closeTime,"Sat");
+		  this.displayDay(this.props.bathroom.businessHours.sun.openTime,this.props.bathroom.businessHours.sun.closeTime,"Sun");
+	  }
+  }
+
+  getAvailableTypes(){
+	  this.getAvailableType(this.props.bathroom.malePublic,"Male Public");
+	  this.getAvailableType(this.props.bathroom.malePrivate,"Male Private");
+	  this.getAvailableType(this.props.bathroom.femalePrivate,"Female Public");
+	  this.getAvailableType(this.props.bathroom.femalePublic,"Female Private");
+	  this.getAvailableType(this.props.bathroom.neutralPublic,"Neutral Public");
+	  this.getAvailableType(this.props.bathroom.neutralPublic,"Neutral Private");
+  }
+
+  getAvailableType(type,typeName){
+	  if(type==-1){
+		  return;
+	  }else{
+		  $("#availableTypes").append("<div>"+typeName+"</div>");
+	  }
+  }
+
+
   render(){
 
     return (
@@ -126,6 +170,10 @@ export default class BathroomInfoModal extends React.Component {
         <h2>
           {this.props.bathroom.bathroomName}
         </h2>
+		<StarRater allowEdit="false" starAmount={this.props.bathroom.stars.starAmount}/>
+		<div>businessHours:{this.getBusinessHours() }
+			<div id="businessHoursAppend" style={{paddingLeft: "20px"}}></div>
+		</div>
         <div>
           Running Water: {this.props.bathroom.runningWater ? "Yes" : "No"}
         </div>
@@ -134,10 +182,19 @@ export default class BathroomInfoModal extends React.Component {
         </div>
         <div>
           Baby Station: {this.props.bathroom.babyStation ? "Yes" : "No"}
-        </div>
+		 </div>
         <div>
           Handicap: {this.props.bathroom.handicap ? "Yes" : "No"}
         </div>
+		<div>
+			Available Types:
+			<div  style={{paddingLeft: "20px"}} id="availableTypes"></div>
+		</div>
+		<div>
+			Additional Info:
+			{this.getAvailableTypes()}
+			<div style={{paddingLeft: "20px"}}>{this.props.bathroom.additionalInfo}</div>
+		</div>
         <div className="formElement">
             <div className="elementBottom">
                 <MaterialButton onClick={() => {this.saveThumbUp()}}><i className="material-icons">thumb_up</i></MaterialButton>

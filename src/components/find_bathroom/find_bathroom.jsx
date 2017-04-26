@@ -4,6 +4,7 @@ import BathroomInfoModal from './bathroom_info_modal';
 import {swirlFirebase} from '../../database/firebase_controller';
 import GeoFire from 'geofire';
 import _ from 'lodash';
+import StarRater from '../bathroomEdit/starRater.jsx';
 /* global google */
 export default class FindBathroom extends React.Component {
   constructor(){
