@@ -9,6 +9,10 @@ import Profile                                    from './components/profile/_pr
 import BathroomEdit                               from './components/bathroomEdit/_bathroomEdit';
 import BathroomReview                             from './components/bathroomReview/_bathroomReview';
 import FindBathroom                               from './components/find_bathroom/find_bathroom';
+import AdminControls                              from './components/admin_controls/_adminpage';
+import AdminUsersView                              from './components/admin_controls/_adminUserPage';
+import AdminBathroomView                          from './components/admin_controls/_adminBathroomPage';
+
 
 export default (
   <Router history={hashHistory}>
@@ -21,6 +25,9 @@ export default (
       <Route path="/bathroomEdit" component={BathroomEdit} />
       <Route path="/bathroomReview" component={BathroomReview} />
       <Route path="/findBathroom" component={FindBathroom} />
+      <Route path="/adminControls" component={AdminControls} />
+      <Route path="/adminUserControl" component={AdminUsersView} />
+      <Route path="/adminBathroomControl" component={AdminBathroomView} />
     </Route>
   </Router>
 );
