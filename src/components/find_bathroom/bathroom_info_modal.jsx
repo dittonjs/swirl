@@ -45,9 +45,7 @@ export default class BathroomInfoModal extends React.Component {
 
   saveThumbUp(){
     const bathroomCreatorID = swirlFirebase.DATABASE.ref(`bathrooms/${this.props.bathroom.ID}/creatorID`).once('value');
-    debugger
     swirlFirebase.DATABASE.ref(`thumbs/${this.props.bathroom.ID}/${window.localStorage.getItem('swirlUserId')}`).once('value').then((snapshot)=>{
-      debugger
       if(!snapshot.val()){
         const thumbs = {
           thumbUp: true,
@@ -197,8 +195,10 @@ export default class BathroomInfoModal extends React.Component {
 		</div>
         <div className="formElement">
             <div className="elementBottom">
+                <div>Thumbs Up: {this.props.bathroom.numThumbsUp}</div>
+                <div>Thumbs Down: {this.props.bathroom.numThumbsDown}</div>
                 <MaterialButton onClick={() => {this.saveThumbUp()}}><i className="material-icons">thumb_up</i></MaterialButton>
-                <MaterialButton onClick={() => {this.saveThumbDown()}}><i className="material-icons">thumb_down</i></MaterialButton>
+                <MaterialButton onClick={() => {this.saveThumbDown()}} className="redButton"><i className="material-icons">thumb_down</i></MaterialButton>
                 <FormTextArea ref={el=>{this.textarea=el}} elementID="reviewText" labelName="Add a comment"/>
             </div>
         </div>

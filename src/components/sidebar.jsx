@@ -14,6 +14,17 @@ export default class Sidebar extends React.Component {
     return (
       <div className={className}>
         <div className="sidebar-header"/>
+
+        <div className="sidebar-item">
+          <MaterialButton
+            type="flat"
+            className="sidebar-button"
+            onClick={() => {this.goTo("/")}}
+          >
+            HOME
+          </MaterialButton>
+        </div>
+
         <div className="sidebar-item">
           <MaterialButton
             type="flat"
@@ -23,6 +34,7 @@ export default class Sidebar extends React.Component {
             FIND A BATHROOM
           </MaterialButton>
         </div>
+
         <div className="sidebar-item">
           <MaterialButton
             type="flat"

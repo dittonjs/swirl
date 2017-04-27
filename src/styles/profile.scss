@@ -12,8 +12,11 @@
 .table {
   width: 100%;
   border : 1px solid $primary-accent;
-  //border-collapse: collapse;
+  border-collapse: collapse;
   margin-bottom: 20px;
+  td {
+    padding: 5px;
+  }
 }
 
 .tableRow {

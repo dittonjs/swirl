@@ -73,13 +73,8 @@ export default class Profile extends ApplicationRoute {
               <TblRow profileDataName="Name:" profileData= {displayName}/>
               <TblRow profileDataName="email:" profileData= {email}/>
               <TblRow profileDataName="Points:" profileData={leaderBoardPoints} />
-              <TblRow profileDataName="Rank:" profileData="25543" />
               <TblRow profileDataName="Reviews Made:" profileData={this.state.reviewCount} />
               <TblRow profileDataName="Bathrooms Uploaded:" profileData={this.state.bathroomCount} />
-            </table>
-            <table className="table">
-              <TblHdr hdrTxt="Bio" />
-              <TextArea elementID="bioText" labelName="Enter Bio Here" /*rowSize={20} colSize={105*//>
             </table>
             MY BATHROOMS
             <nav>
@@ -90,19 +85,6 @@ export default class Profile extends ApplicationRoute {
                     deleteItem={() => {this.deleteBathroom(key)}}
                   >
                     {bathroom.bathroomName}
-                  </BathroomList>
-                ))}
-              </ul>
-            </nav>
-            MY COMMENTS
-            <nav>
-              <ul className="scrollBathrooms">
-                {_.map(this.state.userData.reviews, (review, key) => (
-                  <BathroomList
-                    key={key}
-                    deleteItem={() => {this.deleteReview(key, review.bathroomId)}}
-                  >
-                    {review.text}
                   </BathroomList>
                 ))}
               </ul>
