@@ -18,7 +18,7 @@ export default class Leaderboards extends React.Component {
 	componentWillMount(){
 		 swirlFirebase.DATABASE.ref("users").once("value",(snapshot)=>{
 			this.setState({
-				users:_.sortBy(_.toArray(snapshot.val()),["leaderBoardPoints"])
+				users:_.sortBy(_.toArray(snapshot.val()),["leaderBoardPoints"]).reverse()
 			});
 		 })
 	}
