@@ -170,7 +170,7 @@ export default class BathroomInfoModal extends React.Component {
         <h2>
           {this.props.bathroom.bathroomName}
         </h2>
-		<StarRater allowEdit="false" starAmount={this.props.bathroom.stars.starAmount}/>
+		<StarRater allowEdit="false" starAmount={this.props.bathroom.stars}/>
 		<div>businessHours:{this.getBusinessHours() }
 			<div id="businessHoursAppend" style={{paddingLeft: "20px"}}></div>
 		</div>

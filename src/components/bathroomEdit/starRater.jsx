@@ -5,8 +5,8 @@ import $ from 'jquery';
 
 export default class starRater extends React.Component {
 	getStarAmount(){
-		return{
-			starAmount:this.refs.starAmount.value
+		return {
+			starAmount: this.refs.starAmount.value
 		}
 	}
 	componentDidMount(){

@@ -111,8 +111,6 @@ export default class BathroomEdit extends ApplicationRoute {
         numThumbsUp: 0,
         numThumbsDown: 0,
       }
-	  console.log(bathroom);
-	return;
 
       const userBathroom = {
         bathroomName,
